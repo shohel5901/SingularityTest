@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="deferalManagementModelStoreContainer" CdmEntityContainer="deferalManagementEntities1">
+    <FunctionImportMapping FunctionImportName="getDefferDocList" FunctionName="deferalManagementModel.Store.getDefferDocList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="deferalManagementModel.getDefferDocList_Result">
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+          <ScalarProperty Name="accountNumber" ColumnName="accountNumber" />
+          <ScalarProperty Name="docName" ColumnName="docName" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="docSubmitDate" ColumnName="docSubmitDate" />
+          <ScalarProperty Name="docDefferDate" ColumnName="docDefferDate" />
+          <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

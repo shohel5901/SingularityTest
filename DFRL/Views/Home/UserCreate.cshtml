@@ -1,0 +1,347 @@
+﻿@{
+    ViewBag.Title = "User Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .editButton{
+        font-size:x-small;
+        background-color:paleturquoise
+    }
+</style>
+<div class="row-fluid">
+    <div id="departmentwindow" class="col-md-12 " style="display:none">
+        <div class="col-md-12 ">
+            <span id="departmentNotification"></span>
+            <form id="departmentform">
+                <div hidden><input type="text" name="userId" id="userId" /></div>
+                    @*<fieldset>
+                        <legend><i class="fa icon fa-user"></i> User Details</legend>*@
+                        <div class="row col-md-12">
+                            <div class="col-md-6">
+                                <div class="k-edit-label">
+                                    <label for="user-role-employee" class="required">User Name </label>
+                                </div>
+                                <div data-container-for="user-role-employee" class="k-edit-field">
+                                    <input class="k-input k-textbox txt-readonly"  id="user-role-employee" placeholder="user name" name="User-role-employee" type="text" style="width: 100%">
+                                </div>
+
+                                <div class="k-edit-label">
+                                    <label for="user-pwd-email" class="required">User Email</label>
+                                </div>
+                                <div data-container-for="user-role-email" class="k-edit-field">
+                                    <input class="k-input k-textbox txt-readonly"  id="user-pwd-email" name="user-pwd-email" type="text" placeholder="User email here" required data-required-msg="User email is required" style="width: 100%">
+                                </div>
+                                <div class="k-edit-label">
+                                    <label for="user-mobile" class="required">Mobile</label>
+                                </div>
+                                <div data-container-for="user-mobile" class="k-edit-field">
+                                    <input class="k-input k-textbox txt-readonly"  id="user-mobile" name="user-mobile" placeholder="User mobile" type="text" style="width: 100%">
+                                </div>
+                                <div class="k-edit-label">
+                                    <label for="user-password" class="required">Password</label>
+                                </div>
+                                <div data-container-for="user-mobile" class="k-edit-field">
+                                    <input class="k-input k-textbox txt-readonly" id="user-password" name="user-password" placeholder="User password" type="password" style="width: 100%">
+                                </div>
+                                <div class="k-edit-label">
+                                    <label for="role-dropdown" class="required">User Type</label>
+                                </div>
+                                <div data-container-for="role-dropdown" class="k-edit-field">
+                                    <input class="form-control" id="role-dropdown" name="role-dropdown" style="width: 100%" />
+                                </div>
+                                <div class="k-edit-label">
+                                    <label for="status-dropdown" class="required">Status</label>
+                                </div>
+                                <div data-container-for="role-dropdown" class="k-edit-field">
+                                    <input class="form-control" id="status-dropdown" name="status-dropdown" style="width: 100%" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="k-edit-label">
+                                    <label for="IsCreatePermission">Create Permission </label>
+                                </div>
+                                <div data-container-for="IsCreatePermission" class="k-edit-field">
+                                    <input class="form-control" id="IsCreatePermission"  name="IsCreatePermission"  style="width: 100%">
+                                </div>
+                                <div class="k-edit-label">
+                                    <label for="IsEditPermission" >Edit Permission</label>
+                                </div>
+                                <div data-container-for="IsEditPermission" class="k-edit-field">
+                                    <input class="form-control" id="IsEditPermission" name="IsEditPermission" style="width: 100%">
+                                </div>
+                                <div class="k-edit-label">
+                                    <label for="IsViewPermission">View Permission</label>
+                                </div>
+                                <div data-container-for="IsViewPermission" class="k-edit-field">
+                                    <input class="form-control" id="IsViewPermission" name="IsViewPermission" style="width: 100%">
+                                </div>
+                                <div class="k-edit-label">
+                                    <label for="IsDeletePermission" class="required">Delete Permission</label>
+                                </div>
+                                <div data-container-for="IsDeletePermission" class="k-edit-field">
+                                    <input class="form-control" id="IsDeletePermission" name="IsDeletePermission" style="width: 100%">
+                                </div>
+                                
+                            </div>
+                        </div>
+              
+            </form>
+            <div data-container-for="notification" class="k-edit-field">
+                <div id="dept-success-msg" class="k-content successmsg"></div>
+            </div>
+            <div class="k-edit-buttons k-state-default">
+                <button type="button" class="k-button k-button-icontext k-primary k-grid-update" id="DepartmentSave">
+                    <span class="k-icon k-update"></span>Create
+                </button>
+                <a class="k-button k-button-icontext k-grid-cancel dept-close-button">
+                    <span class="k-icon k-cancel"></span>Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="dept-update-msg" class="k-content successmsg"></div>
+    <div id="toolbar"></div>
+    <div id="grid" style="height:390px"></div>
+</div>
+
+<script type="text/javascript">
+    jQuery.ajaxSetup({ cache: false });
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
+    var token = localStorage.getItem('accessToken');
+    var userId = localStorage.getItem('userId');
+    $("#idPageTitle").text('User Create');
+
+    var dataSource = [
+            { text: "True", value: "True" },
+            { text: "False", value: "False" }
+            ];
+    $("#role-dropdown").kendoComboBox({
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: [
+            { text: "Admin", value: "Admin" },
+            { text: "User", value: "User" },
+        ],
+        filter: "contains",
+        suggest: true,
+        index: 3
+    });
+    $("#status-dropdown").kendoComboBox({
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: dataSource,
+        filter: "contains",
+        suggest: true,
+        index: 3
+    });
+    $("#IsCreatePermission").kendoComboBox({
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: dataSource,
+        filter: "contains",
+        suggest: true,
+        index: 3
+    });
+    $("#IsEditPermission").kendoComboBox({
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: dataSource,
+        filter: "contains",
+        suggest: true,
+        index: 3
+    });
+    $("#IsViewPermission").kendoComboBox({
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: dataSource,
+        filter: "contains",
+        suggest: true,
+        index: 3
+    });
+    $("#IsDeletePermission").kendoComboBox({
+        dataTextField: "text",
+        dataValueField: "value",
+        dataSource: dataSource,
+        filter: "contains",
+        suggest: true,
+        index: 3
+    });
+    var departmentNotification = $("#departmentNotification").kendoNotification({
+        appendTo: "#dept-success-msg",
+        autoHideAfter: 6000,
+        button: true,
+        hideOnClick: true,
+    }).data("kendoNotification");
+    $('#DepartmentSave').unbind().bind('click', function (e) {
+        e.preventDefault();
+        var userId = $("#userId").val() == null ? 0 : $("#userId").val() == "" ? 0 : $("#userId").val();
+            $.ajax({
+                url: baseUrl + "api/UserCreateApi",
+                type: 'POST',
+                dataType: 'json',
+                data: { 
+                    UserId: userId,
+                    UserName: $("#user-role-employee").val(),
+                    UserPassword: $("#user-password").val(),
+                    UserMobile: $("#user-mobile").val(),
+                    UserEmail: $("#user-pwd-email").val(),
+                    IsActive: $("#status-dropdown").val(),
+                    UserType: $("#role-dropdown").val(),
+                    IsCreatePermission: $("#IsCreatePermission").val(),
+                    IsEditPermission: $("#IsEditPermission").val(),
+                    IsViewPermission: $("#IsViewPermission").val(),
+                    IsDeletePermission: $("#IsDeletePermission").val(),
+                },
+                beforeSend: function (xhr) {
+                    var auth = 'Bearer ' + token;
+                    xhr.setRequestHeader('Authorization', auth);
+                },
+                success: function (data) {
+                    console.log(data);
+                    $("#departmentwindow").data("kendoWindow").center().close();
+                    $("#departmentform")[0].reset();
+                    $("#grid").data("kendoGrid").dataSource.read();
+                    swal("Success", "User has been submitted", "success");
+                    return false;
+                },
+                error: function (xhr, errorType, exception) {
+                    var responseText = jQuery.parseJSON(xhr.responseText);
+                    departmentNotification.show(responseText.Message, "warning");
+                }
+            });
+        
+    });
+    $("#toolbar").kendoToolBar({
+        items: [
+            { type: "button", text: "Add User", id: "dept", icon: "k-icon k-add" },
+            { type: "button", text: "Export To Excel", id: "exportExcel", icon: "k-icon k-i-excel" },
+        ]
+    });
+    $("#exportExcel").click(function () {
+        var grid = $("#grid").data("kendoGrid").saveAsExcel();
+    });
+    $("#undo").click(function () {
+        $("#window-insert").data("kendoWindow").center().open();
+        $("#undo").fadeOut();
+    });
+    function onEmpClose() {
+        $("#undo").fadeIn();
+    }
+    $(".close-button").click(function () {
+        $(this).closest("[data-role=window]").data("kendoWindow").close();
+    });
+    $(".dept-close-button").click(function () {
+        $(this).closest("[data-role=window]").data("kendoWindow").close();
+    });
+    $("#dept").click(function () {
+        $("#departmentform")[0].reset();
+        $("#departmentwindow").data("kendoWindow").center().open();
+        $("#dept").fadeOut();
+    });
+    function onDeptClose() {
+        $("#dept").fadeIn();
+    }
+
+    $("#departmentwindow").kendoWindow({
+        width: "80%",
+        title: "Add User",
+        resizable: false,
+        scrollable: false,
+        actions: [
+            "Close"
+        ],
+        position: {
+        },
+        close: onDeptClose
+    }).data("kendoWindow");
+    dataSource = new kendo.data.DataSource({
+        transport: {
+            read:
+            {
+                url: baseUrl + "api/UserCreateApi",
+                dataType: "json",   //reading data
+                beforeSend: function (xhr) {
+                    var auth = 'Bearer ' + token;
+                    xhr.setRequestHeader('Authorization', auth);
+                }
+            }
+        },
+        schema:
+        {
+            model:
+            {
+            }
+        },
+        pageSize: 10
+    });
+    $("#grid").kendoGrid({
+        dataSource: dataSource, 
+        selectable: true,     
+        groupable: true,
+        sortable: true,         
+        excel: {
+            allPages: true,
+            fileName: "UserList.xlsx"
+        },
+        columns: [
+            { field: "UserId", title: "ID", width: "70px", hidden: true },
+            { field: "UserName", title: "Name", width: "150px" },
+            { field: "UserMobile", title: "Mobile", width: "80px"},
+            { field: "UserEmail", title: "Email", width: "100px", },
+            { field: "UserType", title: "Role", width: "100px", },
+            { field: "IsActive", title: "Is Active", width: "100px" },
+            { field: "IsCreatePermission", title: "C.Permission", width: "80px" },
+            { field: "IsEditPermission", title: "E.Permission", width: "100px", },
+            { field: "IsViewPermission", title: "V.Permission", width: "100px", },
+            { field: "IsDeletePermission", title: "D.Permission", width: "100px" },
+            {
+                command: { text: "Edit", className: "editButton", imageClass: "k-icon k-i-pencil ob-icon-only" }, title: "Action", width: "110px"
+            }
+
+        ],
+        allowCopy: false,
+        filterable: true,       
+        columnMenu: true,
+        reorderable: true,
+        resizable: true,
+        pageable: {
+            refresh: true,
+            pageSize: true,
+            pageSizes: [5, 10, 25, 50, 100, "All"],
+            messages: {
+                itemsPerPage: "User List",
+                display: "{0}-{1} from {2} user list",
+                empty: "No entry Found",
+                allPages: "Show All"
+            }
+        },
+        dataBound: function () {
+            var rows = this.items();
+            $(rows).each(function () {
+                var index = $(this).index() + 1;
+                var rowLabel = $(this).find(".row-number");
+                $(rowLabel).html(index);
+            });
+        }
+    }).data("kendoGrid");
+    var myVar = null;
+    $("#grid").delegate(".editButton", "click", function (e) {
+        var grid = $("#grid").data("kendoGrid");
+        myVar = grid.dataItem($(this).closest("tr"));
+        $("#user-password").hide();
+        $("#userId").val(myVar.UserId);
+        $("#user-role-employee").val(myVar.UserName),
+        $("#user-mobile").val(myVar.UserMobile),
+        $("#user-pwd-email").val(myVar.UserEmail),
+        $("#status-dropdown").data("kendoComboBox").value(myVar.IsActive);
+        $("#role-dropdown").data("kendoComboBox").value(myVar.UserType);
+        $("#IsCreatePermission").data("kendoComboBox").value(myVar.IsCreatePermission);
+        $("#IsEditPermission").data("kendoComboBox").value(myVar.IsEditPermission);
+        $("#IsViewPermission").data("kendoComboBox").value(myVar.IsViewPermission);
+        $("#IsDeletePermission").data("kendoComboBox").value(myVar.IsDeletePermission);
+        $("#departmentwindow").data("kendoWindow").center().open();
+        $(e.target).closest("tr").toggleClass("k-state-selected");
+    });
+</script>
+

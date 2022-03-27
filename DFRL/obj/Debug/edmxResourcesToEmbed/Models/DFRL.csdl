@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="deferalManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="deferalManagementEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="getDefferDocList" ReturnType="Collection(deferalManagementModel.getDefferDocList_Result)">
+      <Parameter Name="pBranch" Mode="In" Type="String" />
+      <Parameter Name="pAccount" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Branches" EntityType="deferalManagementModel.Branch" />
+    <EntitySet Name="Departments" EntityType="deferalManagementModel.Department" />
+    <EntitySet Name="Employees" EntityType="deferalManagementModel.Employee" />
+    <EntitySet Name="LoanAccounts" EntityType="deferalManagementModel.LoanAccount" />
+    <EntitySet Name="LoanDeferralHists" EntityType="deferalManagementModel.LoanDeferralHist" />
+    <EntitySet Name="LoanDocuments" EntityType="deferalManagementModel.LoanDocument" />
+    <EntitySet Name="sysdiagrams" EntityType="deferalManagementModel.sysdiagram" />
+    <EntitySet Name="tb_main_menu" EntityType="deferalManagementModel.tb_main_menu" />
+    <EntitySet Name="tb_setting" EntityType="deferalManagementModel.tb_setting" />
+    <EntitySet Name="tb_sub_menu" EntityType="deferalManagementModel.tb_sub_menu" />
+    <EntitySet Name="tb_User" EntityType="deferalManagementModel.tb_User" />
+    <EntitySet Name="tb_user_sub_menu" EntityType="deferalManagementModel.tb_user_sub_menu" />
+    <EntitySet Name="tb_UserRole" EntityType="deferalManagementModel.tb_UserRole" />
+    <EntitySet Name="Users" EntityType="deferalManagementModel.User" />
+    <AssociationSet Name="FK_tb_sub_menu_tb_main_menu" Association="deferalManagementModel.FK_tb_sub_menu_tb_main_menu">
+      <End Role="tb_main_menu" EntitySet="tb_main_menu" />
+      <End Role="tb_sub_menu" EntitySet="tb_sub_menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_user_sub_menu_tb_main_menu" Association="deferalManagementModel.FK_tb_user_sub_menu_tb_main_menu">
+      <End Role="tb_main_menu" EntitySet="tb_main_menu" />
+      <End Role="tb_user_sub_menu" EntitySet="tb_user_sub_menu" />
+    </AssociationSet>
+    <EntitySet Name="tb_role" EntityType="deferalManagementModel.tb_role" />
+    <EntitySet Name="tb_company" EntityType="deferalManagementModel.tb_company" />
+    <EntitySet Name="tb_status" EntityType="deferalManagementModel.tb_status" />
+  </EntityContainer>
+  <ComplexType Name="getDefferDocList_Result">
+    <Property Type="String" Name="branchCode" Nullable="false" MaxLength="5" />
+    <Property Type="String" Name="accountNumber" Nullable="false" MaxLength="11" />
+    <Property Type="String" Name="docName" Nullable="false" MaxLength="500" />
+    <Property Type="Int32" Name="status" Nullable="false" />
+    <Property Type="DateTime" Name="docSubmitDate" Nullable="false" />
+    <Property Type="DateTime" Name="docDefferDate" Nullable="false" />
+    <Property Type="String" Name="EmpName" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="branch_code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="branch_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="departmentId" />
+    </Key>
+    <Property Name="departmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="deptName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmpId" />
+    </Key>
+    <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="EmpMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EmpEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="BranchCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="departmentId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="LoanAccount">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="branchCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="accountNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="addedBy" Type="Int32" />
+    <Property Name="addedDate" Type="DateTime" Precision="0" />
+    <Property Name="authBy" Type="Int32" />
+    <Property Name="authDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="LoanDeferralHist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="docId" Type="Int32" Nullable="false" />
+    <Property Name="defferNo" Type="Int32" Nullable="false" />
+    <Property Name="branchCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="accountNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="docSubmitDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="docDefferDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="rerponsibleEmpId" Type="Int32" />
+    <Property Name="addedBy" Type="Int32" />
+    <Property Name="addedDate" Type="DateTime" Precision="0" />
+    <Property Name="authBy" Type="Int32" />
+    <Property Name="authDate" Type="DateTime" Precision="0" />
+    <Property Name="fileName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="fileLink" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="authStatus" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="comments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="LoanDocument">
+    <Key>
+      <PropertyRef Name="docId" />
+    </Key>
+    <Property Name="docId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="docName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="addedBy" Type="Int32" />
+    <Property Name="addedDate" Type="DateTime" Precision="0" />
+    <Property Name="authBy" Type="Int32" />
+    <Property Name="authDate" Type="DateTime" Precision="0" />
+    <Property Name="productId" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tb_main_menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="parent_menu_text" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="parent_icon_class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="display_order" Type="Int32" />
+    <Property Name="is_active" Type="Boolean" />
+    <NavigationProperty Name="tb_sub_menu" Relationship="deferalManagementModel.FK_tb_sub_menu_tb_main_menu" FromRole="tb_main_menu" ToRole="tb_sub_menu" />
+    <NavigationProperty Name="tb_user_sub_menu" Relationship="deferalManagementModel.FK_tb_user_sub_menu_tb_main_menu" FromRole="tb_main_menu" ToRole="tb_user_sub_menu" />
+  </EntityType>
+  <EntityType Name="tb_setting">
+    <Key>
+      <PropertyRef Name="settings_id" />
+    </Key>
+    <Property Name="settings_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="app_title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="is_active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tb_sub_menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sub_menu_text" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sub_icon_class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="page_url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="main_menu_id" Type="Int32" />
+    <NavigationProperty Name="tb_main_menu" Relationship="deferalManagementModel.FK_tb_sub_menu_tb_main_menu" FromRole="tb_sub_menu" ToRole="tb_main_menu" />
+  </EntityType>
+  <EntityType Name="tb_User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UserMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UserEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="BranchCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="SecurityCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="HomeCompanyCode" Type="Int32" />
+    <Property Name="AddedBy" Type="Int32" />
+    <Property Name="AddedDate" Type="DateTime" Precision="0" />
+    <Property Name="AddedTime" Type="Time" Precision="7" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedTime" Type="Time" Precision="7" />
+    <Property Name="UserImageFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="RoleId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tb_user_sub_menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sub_menu_text" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sub_icon_class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="page_url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sub_menu_id" Type="Int32" />
+    <Property Name="parent_menu_id" Type="Int32" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="is_permitted" Type="Boolean" />
+    <Property Name="added_by" Type="Int32" />
+    <Property Name="added_date" Type="DateTime" Precision="3" />
+    <Property Name="updated_by" Type="Int32" />
+    <Property Name="updated_date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tb_main_menu" Relationship="deferalManagementModel.FK_tb_user_sub_menu_tb_main_menu" FromRole="tb_user_sub_menu" ToRole="tb_main_menu" />
+  </EntityType>
+  <EntityType Name="tb_UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="RoleId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="EmpId" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK_tb_sub_menu_tb_main_menu">
+    <End Type="deferalManagementModel.tb_main_menu" Role="tb_main_menu" Multiplicity="0..1" />
+    <End Type="deferalManagementModel.tb_sub_menu" Role="tb_sub_menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_main_menu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tb_sub_menu">
+        <PropertyRef Name="main_menu_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_user_sub_menu_tb_main_menu">
+    <End Type="deferalManagementModel.tb_main_menu" Role="tb_main_menu" Multiplicity="0..1" />
+    <End Type="deferalManagementModel.tb_user_sub_menu" Role="tb_user_sub_menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_main_menu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tb_user_sub_menu">
+        <PropertyRef Name="parent_menu_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tb_role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tb_company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tb_status">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="StatusBit" Type="Boolean" />
+  </EntityType>
+</Schema>

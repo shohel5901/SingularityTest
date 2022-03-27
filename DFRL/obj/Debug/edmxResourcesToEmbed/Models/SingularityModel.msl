@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SingularityModelStoreContainer" CdmEntityContainer="SingularityEdmx">
+    <EntitySetMapping Name="tb_main_menu">
+      <EntityTypeMapping TypeName="SingularityModel.tb_main_menu">
+        <MappingFragment StoreEntitySet="tb_main_menu">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="parent_menu_text" ColumnName="parent_menu_text" />
+          <ScalarProperty Name="parent_icon_class" ColumnName="parent_icon_class" />
+          <ScalarProperty Name="display_order" ColumnName="display_order" />
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_sub_menu">
+      <EntityTypeMapping TypeName="SingularityModel.tb_sub_menu">
+        <MappingFragment StoreEntitySet="tb_sub_menu">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="sub_menu_text" ColumnName="sub_menu_text" />
+          <ScalarProperty Name="sub_icon_class" ColumnName="sub_icon_class" />
+          <ScalarProperty Name="page_url" ColumnName="page_url" />
+          <ScalarProperty Name="main_menu_id" ColumnName="main_menu_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_User">
+      <EntityTypeMapping TypeName="SingularityModel.tb_User">
+        <MappingFragment StoreEntitySet="tb_User">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserMobile" ColumnName="UserMobile" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UserImageFile" ColumnName="UserImageFile" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="IsCreatePermission" ColumnName="IsCreatePermission" />
+          <ScalarProperty Name="IsEditPermission" ColumnName="IsEditPermission" />
+          <ScalarProperty Name="IsViewPermission" ColumnName="IsViewPermission" />
+          <ScalarProperty Name="IsDeletePermission" ColumnName="IsDeletePermission" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="SingularityModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="EmpJobDescription" ColumnName="EmpJobDescription" />
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+          <ScalarProperty Name="EmpEmail" ColumnName="EmpEmail" />
+          <ScalarProperty Name="EmpMobile" ColumnName="EmpMobile" />
+          <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+          <ScalarProperty Name="EmpIdCardNo" ColumnName="EmpIdCardNo" />
+          <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

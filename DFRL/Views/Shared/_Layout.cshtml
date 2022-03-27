@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Singularity- Dashboard</title>
+
+    <link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/css/ruang-admin.min.css" rel="stylesheet">
+    <link href="~/Content/app-css/theme.css" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/kendo/2021.1.330/kendo.bootstrap-v4.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2021.1.330/jquery.min.js")"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <script src="~/Scripts/js/ruang-admin.min.js"></script>
+    <script src="~/Content/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/Scripts/js/demo/chart-area-demo.js"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/kendo/2021.1.330/angular.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2021.1.330/jszip.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2021.1.330/kendo.all.min.js")"></script>
+    
+    <style type="text/css">
+        /*.sidebar-brand-icon:hover {
+         background-color: #fafafa;
+        }*/
+        .sidebar-brand-icon:hover {
+            opacity: 0.1;
+            filter: alpha(opacity=10);
+        }
+        .error {
+        border-color: red !important;
+        display: block;
+        }
+        div.error {
+        color: red;
+        display: inline-block;
+        float: left;
+        font-size:14px;
+    }
+        .sidebar1 {
+            min-height: 45vh;
+            width: 45rem !important;
+            background-color: #fff !important;
+            -webkit-box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+            box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+            z-index: 0;
+        }
+        .avatar-upload {
+            position: relative;
+            max-width: 205px;
+            margin: 10px auto;
+        }
+            .avatar-upload .avatar-edit {
+                position: absolute;
+                right: 12px;
+                z-index: 1;
+                top: 10px;
+            }
+                .avatar-upload .avatar-edit input {
+                    display: none;
+                }
+                    .avatar-upload .avatar-edit input + label {
+                        display: inline-block;
+                        width: 34px;
+                        height: 34px;
+                        margin-bottom: 0;
+                        border-radius: 100%;
+                        background: #ffffff;
+                        border: 1px solid transparent;
+                        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+                        cursor: pointer;
+                        font-weight: normal;
+                        transition: all 0.2s ease-in-out;
+                    }
+                        .avatar-upload .avatar-edit input + label:hover {
+                            background: #f1f1f1;
+                            border-color: #d6d6d6;
+                        }
+                        .avatar-upload .avatar-edit input + label:after {
+                            content: "\f040";
+                            font-family: "FontAwesome";
+                            color: #757575;
+                            position: absolute;
+                            top: 10px;
+                            left: 0;
+                            right: 0;
+                            text-align: center;
+                            margin: auto;
+                        }
+            .avatar-upload .avatar-preview {
+                width: 192px;
+                height: 192px;
+                position: relative;
+                border-radius: 100%;
+                border: 6px solid #f8f8f8;
+                box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+            }
+            .avatar-upload .avatar-preview > div {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 100%;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav sidebar sidebar-light accordion  " id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/home/index">
+                Singularity
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/home/index">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">
+                Features
+            </div>
+            <div id="menuContent">
+            </div>
+            <hr class="sidebar-divider">
+        </ul>
+
+        <!-- Main Content with header Area -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <!-- TopBar -->
+                <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+                    <!-- Toggle Button -->
+                    <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Profile Area  -->
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <span class="ml-2 d-none d-lg-inline text-white small" id="idNameTop">Shohel</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" onclick="fnLogout()" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Topbar -->
+                <div class="container-fluid" id="container-wrapper" style="margin-top:-3vh">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800" id="idPageTitle">Dashboard</h1>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="./">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                        </ol>
+                    </div>
+
+                    <link href="~/Content/sweetalert/sweetalert2.min.css" rel="stylesheet" />
+                    <script src="~/Content/sweetalert/sweetalert2.min.js"></script>
+                    <script src="~/Scripts/jquery.validate.min.js"></script>
+                    @RenderBody()
+
+                </div>
+            </div>
+            <!-- Top Bar with Main Body End -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>
+                            copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> - developed by
+                            <b><a href="" target="_blank">Jamal Hosen Shohel</a></b>
+                        </span>
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer -->
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <script src="~/ViewsScript/shared.js"></script>
+
+
+
+</body>
+</html>

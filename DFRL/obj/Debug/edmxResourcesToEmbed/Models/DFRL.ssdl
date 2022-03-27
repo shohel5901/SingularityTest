@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="deferalManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="branch_code" Type="varchar" MaxLength="5" />
+    <Property Name="branch_name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="departmentId" />
+    </Key>
+    <Property Name="departmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="deptName" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmpId" />
+    </Key>
+    <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpName" Type="varchar" MaxLength="200" />
+    <Property Name="EmpMobile" Type="varchar" MaxLength="20" />
+    <Property Name="EmpEmail" Type="varchar" MaxLength="200" />
+    <Property Name="BranchCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="departmentId" Type="int" />
+  </EntityType>
+  <EntityType Name="LoanAccount">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="branchCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="accountNumber" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="addedBy" Type="int" />
+    <Property Name="addedDate" Type="date" />
+    <Property Name="authBy" Type="int" />
+    <Property Name="authDate" Type="date" />
+  </EntityType>
+  <EntityType Name="LoanDeferralHist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="docId" Type="int" Nullable="false" />
+    <Property Name="defferNo" Type="int" Nullable="false" />
+    <Property Name="branchCode" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="accountNumber" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="docSubmitDate" Type="date" Nullable="false" />
+    <Property Name="docDefferDate" Type="date" Nullable="false" />
+    <Property Name="rerponsibleEmpId" Type="int" />
+    <Property Name="addedBy" Type="int" />
+    <Property Name="addedDate" Type="date" />
+    <Property Name="authBy" Type="int" />
+    <Property Name="authDate" Type="date" />
+    <Property Name="fileName" Type="varchar" MaxLength="500" />
+    <Property Name="fileLink" Type="varchar" MaxLength="500" />
+    <Property Name="authStatus" Type="varchar" MaxLength="5" />
+    <Property Name="comments" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="LoanDocuments">
+    <Key>
+      <PropertyRef Name="docId" />
+    </Key>
+    <Property Name="docId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="docName" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="addedBy" Type="int" />
+    <Property Name="addedDate" Type="date" />
+    <Property Name="authBy" Type="int" />
+    <Property Name="authDate" Type="date" />
+    <Property Name="productId" Type="varchar" MaxLength="5" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tb_company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="50" />
+    <Property Name="CompanyAddress" Type="varchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_main_menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="parent_menu_text" Type="varchar" MaxLength="200" />
+    <Property Name="parent_icon_class" Type="varchar" MaxLength="50" />
+    <Property Name="display_order" Type="int" />
+    <Property Name="is_active" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_setting">
+    <Key>
+      <PropertyRef Name="settings_id" />
+    </Key>
+    <Property Name="settings_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="app_title" Type="varchar" MaxLength="100" />
+    <Property Name="is_active" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_status">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusType" Type="varchar" MaxLength="50" />
+    <Property Name="StatusBit" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_sub_menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sub_menu_text" Type="varchar" MaxLength="200" />
+    <Property Name="sub_icon_class" Type="varchar" MaxLength="50" />
+    <Property Name="page_url" Type="varchar" MaxLength="200" />
+    <Property Name="main_menu_id" Type="int" />
+  </EntityType>
+  <EntityType Name="tb_User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="200" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="200" />
+    <Property Name="UserMobile" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="200" />
+    <Property Name="BranchCode" Type="varchar" MaxLength="5" />
+    <Property Name="EmployeeId" Type="varchar" MaxLength="20" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="SecurityCode" Type="varchar(max)" />
+    <Property Name="HomeCompanyCode" Type="int" />
+    <Property Name="AddedBy" Type="int" />
+    <Property Name="AddedDate" Type="date" />
+    <Property Name="AddedTime" Type="time" Precision="7" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="UpdatedTime" Type="time" Precision="7" />
+    <Property Name="UserImageFile" Type="varchar(max)" />
+    <Property Name="RoleId" Type="int" />
+  </EntityType>
+  <EntityType Name="tb_user_sub_menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sub_menu_text" Type="varchar" MaxLength="200" />
+    <Property Name="sub_icon_class" Type="varchar" MaxLength="50" />
+    <Property Name="page_url" Type="varchar" MaxLength="200" />
+    <Property Name="sub_menu_id" Type="int" />
+    <Property Name="parent_menu_id" Type="int" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="is_permitted" Type="bit" />
+    <Property Name="added_by" Type="int" />
+    <Property Name="added_date" Type="datetime" />
+    <Property Name="updated_by" Type="int" />
+    <Property Name="updated_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tb_UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="RoleId" Type="int" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="EmpId" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <Association Name="FK_tb_sub_menu_tb_main_menu">
+    <End Role="tb_main_menu" Type="Self.tb_main_menu" Multiplicity="0..1" />
+    <End Role="tb_sub_menu" Type="Self.tb_sub_menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_main_menu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tb_sub_menu">
+        <PropertyRef Name="main_menu_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_user_sub_menu_tb_main_menu">
+    <End Role="tb_main_menu" Type="Self.tb_main_menu" Multiplicity="0..1" />
+    <End Role="tb_user_sub_menu" Type="Self.tb_user_sub_menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_main_menu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tb_user_sub_menu">
+        <PropertyRef Name="parent_menu_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="getDefferDocList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pBranch" Type="nvarchar" Mode="In" />
+    <Parameter Name="pAccount" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="deferalManagementModelStoreContainer">
+    <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoanAccount" EntityType="Self.LoanAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoanDeferralHist" EntityType="Self.LoanDeferralHist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoanDocuments" EntityType="Self.LoanDocuments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_company" EntityType="Self.tb_company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_main_menu" EntityType="Self.tb_main_menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_role" EntityType="Self.tb_role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_setting" EntityType="Self.tb_setting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_status" EntityType="Self.tb_status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_sub_menu" EntityType="Self.tb_sub_menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_User" EntityType="Self.tb_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_user_sub_menu" EntityType="Self.tb_user_sub_menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_UserRole" EntityType="Self.tb_UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tb_sub_menu_tb_main_menu" Association="Self.FK_tb_sub_menu_tb_main_menu">
+      <End Role="tb_main_menu" EntitySet="tb_main_menu" />
+      <End Role="tb_sub_menu" EntitySet="tb_sub_menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_user_sub_menu_tb_main_menu" Association="Self.FK_tb_user_sub_menu_tb_main_menu">
+      <End Role="tb_main_menu" EntitySet="tb_main_menu" />
+      <End Role="tb_user_sub_menu" EntitySet="tb_user_sub_menu" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

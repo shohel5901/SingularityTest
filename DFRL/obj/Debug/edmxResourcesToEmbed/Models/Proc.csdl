@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="deferalManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="deferalManagementEntities1" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="getDefferDocList" ReturnType="Collection(deferalManagementModel.getDefferDocList_Result)">
+      <Parameter Name="pBranch" Mode="In" Type="String" />
+      <Parameter Name="pAccount" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="getDefferDocList_Result">
+    <Property Type="String" Name="branchCode" Nullable="false" MaxLength="5" />
+    <Property Type="String" Name="accountNumber" Nullable="false" MaxLength="11" />
+    <Property Type="String" Name="docName" Nullable="false" MaxLength="500" />
+    <Property Type="Int32" Name="status" Nullable="false" />
+    <Property Type="DateTime" Name="docSubmitDate" Nullable="false" />
+    <Property Type="DateTime" Name="docDefferDate" Nullable="false" />
+    <Property Type="String" Name="EmpName" Nullable="true" MaxLength="200" />
+  </ComplexType>
+</Schema>

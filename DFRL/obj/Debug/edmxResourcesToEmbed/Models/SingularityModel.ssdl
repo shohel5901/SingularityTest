@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SingularityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmpId" />
+    </Key>
+    <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpIdCardNo" Type="varchar" MaxLength="10" />
+    <Property Name="EmpName" Type="varchar" MaxLength="200" />
+    <Property Name="EmpMobile" Type="varchar" MaxLength="20" />
+    <Property Name="EmpEmail" Type="varchar" MaxLength="200" />
+    <Property Name="JoinDate" Type="datetime" />
+    <Property Name="DepartmentName" Type="varchar" MaxLength="50" />
+    <Property Name="EmpJobDescription" Type="varchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_main_menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="parent_menu_text" Type="varchar" MaxLength="200" />
+    <Property Name="parent_icon_class" Type="varchar" MaxLength="50" />
+    <Property Name="display_order" Type="int" />
+    <Property Name="is_active" Type="bit" />
+  </EntityType>
+  <EntityType Name="tb_sub_menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sub_menu_text" Type="varchar" MaxLength="200" />
+    <Property Name="sub_icon_class" Type="varchar" MaxLength="50" />
+    <Property Name="page_url" Type="varchar" MaxLength="200" />
+    <Property Name="main_menu_id" Type="int" />
+  </EntityType>
+  <EntityType Name="tb_User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="200" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="200" />
+    <Property Name="UserMobile" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="AddedBy" Type="int" />
+    <Property Name="AddedDate" Type="date" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="UserImageFile" Type="varchar(max)" />
+    <Property Name="UserType" Type="varchar" MaxLength="20" />
+    <Property Name="IsCreatePermission" Type="bit" />
+    <Property Name="IsEditPermission" Type="bit" />
+    <Property Name="IsViewPermission" Type="bit" />
+    <Property Name="IsDeletePermission" Type="bit" />
+    <Property Name="Token" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <Association Name="FK_tb_sub_menu_tb_main_menu">
+    <End Role="tb_main_menu" Type="Self.tb_main_menu" Multiplicity="0..1" />
+    <End Role="tb_sub_menu" Type="Self.tb_sub_menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_main_menu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tb_sub_menu">
+        <PropertyRef Name="main_menu_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SingularityModelStoreContainer">
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_main_menu" EntityType="Self.tb_main_menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_sub_menu" EntityType="Self.tb_sub_menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tb_User" EntityType="Self.tb_User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tb_sub_menu_tb_main_menu" Association="Self.FK_tb_sub_menu_tb_main_menu">
+      <End Role="tb_main_menu" EntitySet="tb_main_menu" />
+      <End Role="tb_sub_menu" EntitySet="tb_sub_menu" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

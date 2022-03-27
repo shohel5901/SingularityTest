@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SingularityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpIdCardNo" Type="varchar" MaxLength="10" />
+          <Property Name="EmpName" Type="varchar" MaxLength="200" />
+          <Property Name="EmpMobile" Type="varchar" MaxLength="20" />
+          <Property Name="EmpEmail" Type="varchar" MaxLength="200" />
+          <Property Name="JoinDate" Type="datetime" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="50" />
+          <Property Name="EmpJobDescription" Type="varchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tb_main_menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="parent_menu_text" Type="varchar" MaxLength="200" />
+          <Property Name="parent_icon_class" Type="varchar" MaxLength="50" />
+          <Property Name="display_order" Type="int" />
+          <Property Name="is_active" Type="bit" />
+        </EntityType>
+        <EntityType Name="tb_sub_menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sub_menu_text" Type="varchar" MaxLength="200" />
+          <Property Name="sub_icon_class" Type="varchar" MaxLength="50" />
+          <Property Name="page_url" Type="varchar" MaxLength="200" />
+          <Property Name="main_menu_id" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="200" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="200" />
+          <Property Name="UserMobile" Type="varchar" MaxLength="20" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="200" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="AddedBy" Type="int" />
+          <Property Name="AddedDate" Type="date" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="date" />
+          <Property Name="UserImageFile" Type="varchar(max)" />
+          <Property Name="UserType" Type="varchar" MaxLength="20" />
+          <Property Name="IsCreatePermission" Type="bit" />
+          <Property Name="IsEditPermission" Type="bit" />
+          <Property Name="IsViewPermission" Type="bit" />
+          <Property Name="IsDeletePermission" Type="bit" />
+          <Property Name="Token" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_tb_sub_menu_tb_main_menu">
+          <End Role="tb_main_menu" Type="Self.tb_main_menu" Multiplicity="0..1" />
+          <End Role="tb_sub_menu" Type="Self.tb_sub_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_main_menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_sub_menu">
+              <PropertyRef Name="main_menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SingularityModelStoreContainer">
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_main_menu" EntityType="Self.tb_main_menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_sub_menu" EntityType="Self.tb_sub_menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_User" EntityType="Self.tb_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tb_sub_menu_tb_main_menu" Association="Self.FK_tb_sub_menu_tb_main_menu">
+            <End Role="tb_main_menu" EntitySet="tb_main_menu" />
+            <End Role="tb_sub_menu" EntitySet="tb_sub_menu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SingularityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tb_main_menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parent_menu_text" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="parent_icon_class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="display_order" Type="Int32" />
+          <Property Name="is_active" Type="Boolean" />
+          <NavigationProperty Name="tb_sub_menu" Relationship="Self.FK_tb_sub_menu_tb_main_menu" FromRole="tb_main_menu" ToRole="tb_sub_menu" />
+        </EntityType>
+        <EntityType Name="tb_sub_menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sub_menu_text" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="sub_icon_class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="page_url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="main_menu_id" Type="Int32" />
+          <NavigationProperty Name="tb_main_menu" Relationship="Self.FK_tb_sub_menu_tb_main_menu" FromRole="tb_sub_menu" ToRole="tb_main_menu" />
+        </EntityType>
+        <EntityType Name="tb_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="AddedBy" Type="Int32" />
+          <Property Name="AddedDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UserImageFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsCreatePermission" Type="Boolean" />
+          <Property Name="IsEditPermission" Type="Boolean" />
+          <Property Name="IsViewPermission" Type="Boolean" />
+          <Property Name="IsDeletePermission" Type="Boolean" />
+          <Property Name="Token" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tb_sub_menu_tb_main_menu">
+          <End Role="tb_main_menu" Type="Self.tb_main_menu" Multiplicity="0..1" />
+          <End Role="tb_sub_menu" Type="Self.tb_sub_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_main_menu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_sub_menu">
+              <PropertyRef Name="main_menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SingularityEdmx" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_main_menu" EntityType="Self.tb_main_menu" />
+          <EntitySet Name="tb_sub_menu" EntityType="Self.tb_sub_menu" />
+          <EntitySet Name="tb_User" EntityType="Self.tb_User" />
+          <AssociationSet Name="FK_tb_sub_menu_tb_main_menu" Association="Self.FK_tb_sub_menu_tb_main_menu">
+            <End Role="tb_main_menu" EntitySet="tb_main_menu" />
+            <End Role="tb_sub_menu" EntitySet="tb_sub_menu" />
+          </AssociationSet>
+          <EntitySet Name="Employees" EntityType="SingularityModel.Employee" />
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpIdCardNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EmpName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmpMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmpEmail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="JoinDate" Type="DateTime" Precision="3" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmpJobDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SingularityModelStoreContainer" CdmEntityContainer="SingularityEdmx">
+          <EntitySetMapping Name="tb_main_menu">
+            <EntityTypeMapping TypeName="SingularityModel.tb_main_menu">
+              <MappingFragment StoreEntitySet="tb_main_menu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="parent_menu_text" ColumnName="parent_menu_text" />
+                <ScalarProperty Name="parent_icon_class" ColumnName="parent_icon_class" />
+                <ScalarProperty Name="display_order" ColumnName="display_order" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_sub_menu">
+            <EntityTypeMapping TypeName="SingularityModel.tb_sub_menu">
+              <MappingFragment StoreEntitySet="tb_sub_menu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="sub_menu_text" ColumnName="sub_menu_text" />
+                <ScalarProperty Name="sub_icon_class" ColumnName="sub_icon_class" />
+                <ScalarProperty Name="page_url" ColumnName="page_url" />
+                <ScalarProperty Name="main_menu_id" ColumnName="main_menu_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_User">
+            <EntityTypeMapping TypeName="SingularityModel.tb_User">
+              <MappingFragment StoreEntitySet="tb_User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserMobile" ColumnName="UserMobile" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UserImageFile" ColumnName="UserImageFile" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="IsCreatePermission" ColumnName="IsCreatePermission" />
+                <ScalarProperty Name="IsEditPermission" ColumnName="IsEditPermission" />
+                <ScalarProperty Name="IsViewPermission" ColumnName="IsViewPermission" />
+                <ScalarProperty Name="IsDeletePermission" ColumnName="IsDeletePermission" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="SingularityModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EmpJobDescription" ColumnName="EmpJobDescription" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+                <ScalarProperty Name="EmpEmail" ColumnName="EmpEmail" />
+                <ScalarProperty Name="EmpMobile" ColumnName="EmpMobile" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpIdCardNo" ColumnName="EmpIdCardNo" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
